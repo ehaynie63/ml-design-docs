@@ -8,30 +8,33 @@ Glaucoma is the 2nd leading cause of blindness affecting 57.5 million people wor
 Hospitals and healthcare providers exploring the use of AI screening models have done so in isolation, developing their own in-house models. There are yet other healthcare companies who do not have the resources to develop their own models and thus seek to decrease their time to market by using off-the-shelf models. 
 The cost of allowing Glaucoma to go undiagnosed is high. Research shows that vision loss is associated with higher Medicare beneficiary costs for trauma, depression, subacute nursing facilities and nursing homes.  A person in the Medicare population with mild vision loss < 20/40 accrues an average of $5,302 in direct medical costs while a person with severe vision loss accrues an average of $9,994 in direct medical costs. Therefore, patients, government and insurers are especially interested in technology which improves the accuracy and cost-effectiveness of Glaucoma screening. 
 ## 3. Success metrics
+
 Business Metrics
 The proposed model will be sold to healthcare application developers in the field of optometry and telemedicine. Telehealth providers could prove to be optimal adopters since their business models are agile, and they are tech savvy. The success metrics below examine what it would look like to pursue US telemedicine companies as customers in Year 1.  
+
 Business Performance Year 1
 Assuming a goal of 1% market share in year 1, annual licensing fee of $10,000 and cost of development of $100,000, here are the target business performance metrics. There are 1,387 telemedicine providers in the US as of 2023. 
 ROI = (Net Income – Cost of Development)/Cost of Development
 ROI = (130,000 – 100,000)/ 100,000 = 30%
 Customer Satisfaction & Product Engagement
-•	Net promoter score of 80+ among physicians
-•	10% of licensed users run predictions weekly
-•	90% of users run predictions daily
+* Net promoter score of 80+ among physicians
+* 10% of licensed users run predictions weekly
+* 90% of users run predictions daily
+
 Agile 
-•	Team members have an average velocity of 8 story points per sprint
+* Team members have an average velocity of 8 story points per sprint
+
 Quality
 The service API should be available at least 99.9% of the time
 The service should receive updates at least quarterly to enhance the products performance, incorporate new data
 ## 4. Requirements & Constraints
 Functional Requirement: 
-The model must be able to accept fundus eye images in JPG format
-The model must be able to accept square images
-The model must work well with small to medium sized images sized between 224 x 224 and 800 x 800 pixels
-The model must be able to accept full color images 
-Images and predictions must be retained for quality control and audit purposes for 10 years
-After 10 years images and predictions must be purged
-The model can identify the following defects which are associated with Glaucoma. (4)
+* The model must be able to accept fundus eye images in JPG format
+* The model must be able to accept square images
+* The model must work well with small to medium sized images sized between 224 x 224 and 800 x 800 pixels
+* The model must be able to accept full color images 
+* Images and predictions must be retained for quality control and audit purposes for 10 years
+* The model can identify the following defects which are associated with Glaucoma. (4)
 Neuroretinal rim thinning
 ![Area between outline of cup and optic disk]( https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.semanticscholar.org%2Fpaper%2FDetection-of-glaucoma-using-Neuroretinal-Rim-Das-Nirmala%2F73a07c0e1691665a5b376475c4a8355eba8f05f8&psig=AOvVaw0KJzMHsxvWwlflazBGgxmH&ust=1690411512607000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCJiBmeD3qoADFQAAAAAdAAAAABAEhttps://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.semanticscholar.org%2Fpaper%2FDetection-of-glaucoma-using-Neuroretinal-Rim-Das-Nirmala%2F73a07c0e1691665a5b376475c4a8355eba8f05f8&psig=AOvVaw0KJzMHsxvWwlflazBGgxmH&ust=1690411512607000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCJiBmeD3qoADFQAAAAAdAAAAABAE)
 Peripapillary Atrophy
@@ -41,33 +44,34 @@ High optic cup-to-disc ratio (CDR)
 Disc hemorrhage 
 ![Flame or splinter shaped red area]( https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.sciencedirect.com%2Fscience%2Farticle%2Fpii%2FS0008418216311759&psig=AOvVaw0e811UK7E4_h0PCbNUKUAA&ust=1690411963172000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCMjuhbf5qoADFQAAAAAdAAAAABAs)
 Non-Functional Requirements
-A model prediction should be generated in less than 10 seconds
-Less than 2 bugs per 1000 lines of code is discovered upon release
+* A model prediction should be generated in less than 10 seconds
+* Less than 2 bugs per 1000 lines of code is discovered upon release
 ### 4.1 Out of Scope:
-Normalization of colors, brightness, contrast within images. 
+Annotations of eye anatomy and glaucomatous features would be helpful for optometrists. 
 ## 5. Methodology
-This project will evaluate the accuracy, specificity, and sensitivity of VGG16 convolutional neural network in classifying eyes as “Glaucomatous” and “Non-Glaucomotous”. VGG16 architecture has been chosen for its ability to classify small images and its success in other health diagnostic use cases. 
-488 images from 333 healthy eyes and 155 diseased eyes will be resized to 224x224 dimensions and will be input to 16 convolution layers grouped into 5 blocks. 
+1. Architecture selection - This project will evaluate the accuracy of a VGG16 convolutional neural network in classifying eyes as “Glaucomatous” and “Non-Glaucomotous”. VGG16 architecture has been chosen for its ability to classify small images with little data loss. 
+2. Data selection – The recently published ACRIMA dataset is selected to for its consistency and quality. The images are clear, centered, and patients were screened by glaucoma experts.
+3. Data Pre-Processing – Images are resized to improve consistency. The data is augmented to be able to handle flipped, rotated, and off-center images.   
+4. Training – Model hyper parameters will be adjusted to find the optimal performance.
+5. Evaluation – The model will be evaluated using 10-fold cross validation and performance metrics calculated.
 ### 5.1. Problem statement
 Glaucoma detection is a supervised classification problem. 
 ### 5.2. Data
-The Papilla dataset this model will use contains a total of 488 fundus images, 333 healthy eyes and 155 eyes with confirmed or suspected glaucoma. The examinations were carried out by the Department of Ophthalmology of the Hospital General Universitario Reina Sofía, HGURS, (Murcia, Spain). (5)
+The ACRIMA dataset this model contains a total of 705 fundus images, 309 normal eyes and 396 eyes with confirmed or suspected glaucoma.
 ### 5.3. Techniques
 Data Preprocessing 
-Original image coefficients are rescaled to be between 0 and 1 by multiplying by a factor of 1/255. 
-Images are resized to be 224 x 224 pixels. 
-Training images will be flipped horizontally and vertically, shifted, and rotated randomly to account for variations within the dataset.
+* Original image coefficients are rescaled to be between 0 and 1 by multiplying by a factor of 1/255. 
+* Images are standardized to be 224 x 224 pixels. 
+* Training images will be flipped horizontally and vertically, shifted, and rotated randomly to account for variations within the dataset.
 What machine learning techniques will you use? How will you clean and prepare the data (e.g., excluding outliers) and create features?
 ### 5.4. Experimentation & Validation
-Data will be split into training and validation sets using a split ratio of 4:1. 
-The accuracy, specificity and sensitivity of the model will be measured and compared to similar models which had an accuracy, specificity and sensitivity of 90%, 88% and 92%.(6) 
-Two optimizers will be compared Adam and SGD and the one that performs best on average over 20 tests will be used.
-Categorical cross-entropy will be used as the cost function since it can accept the output of the final SoftMax layer.
-If you're A/B testing, how will you assign treatment and control (e.g., customer vs. session-based) and what metrics will you measure? What are the success and [guardrail](https://medium.com/airbnb-engineering/designing-experimentation-guardrails-ed6a976ec669) metrics?
-
+* Data will be split into training and validation sets using a split ratio of 4:1. 
+* The accuracy, specificity and sensitivity of the model will be measured and compared to similar models which had an accuracy, specificity and sensitivity of 90%, 88% and 92%.(6) 
+* Two optimizers will be compared Adam and SGD and the one that performs best on average over 20 tests will be used.
+* Categorical cross-entropy will be used as the cost function since it can accept the output of the final SoftMax layer.
 ### 5.5. Human-in-the-loop
- Predictions with a confidence level below 75% will contain a message which indicates the user should pursue additional testing.  
-This model should not be used to assess glaucoma in individuals with diseases that can mimic it including isquemic and compressive optic neuropathies.(7)
+ Predictions with a confidence level below 75% will contain a message which indicates the user should undergo additional screening. 
+This model should not be used to assess glaucoma in individuals with diseases that can mimic it including isquemic and compressive optic neuropathies. (7)
 ## 6. Implementation
 
 ### 6.1. High-level design
@@ -80,53 +84,43 @@ Start by providing a big-picture view. [System-context diagrams](https://en.wiki
 This service will be hosted in an AWS EC2 instance and images will be stored in S3. 
 
 ### 6.3. Performance (Throughput, Latency)
-
+* The glaucoma screening service will scale horizontally to be able to handle a maximum of 1000 request per minute. 
+* A response for 1 prediction should be returned by the service in less than 10 seconds. 
 How will your system meet the throughput and latency requirements? Will it scale vertically or horizontally?
 
 ### 6.4. Security
-
-How will your system/application authenticate users and incoming requests? If it's publicly accessible, will it be behind a firewall?
-
+Users of the service will authenticate via OAuth 2.0. 
 ### 6.5. Data privacy
-
-How will you ensure the privacy of customer data? Will your system be compliant with data retention and deletion policies (e.g., [GDPR](https://gdpr.eu/what-is-gdpr/))?
-
+PII will not be received at any time but patient fundus images will be stored encrypted. None of the information posted to the API will be shared with 3rd parties. 
 ### 6.6. Monitoring & Alarms
-
-How will you log events in your system? What metrics will you monitor and how? Will you have alarms if a metric breaches a threshold or something else goes wrong?
-
+Model Performance Monitoring
+Each major release triggers a reevaluation of model performance metrics to ensure it is still performing well. 
+Monitoring for Service API
+HTTP responses with 400 and 500 codes should be logged in a Splunk dashboard. Logs messages should not contain any patient data.
+If greater than 5% of HTPP responses have a 400 or 500 code within 15 minutes an alert should be triggered. 
+If the service goes down, an alert will be triggered. 
 ### 6.7. Cost
 How much will it cost to build and operate your system? Share estimated monthly costs (e.g., EC2 instances, Lambda, etc.)
-
 ### 6.8. Integration points
 Users of the proposed model will query a REST API posting 1 or more fundus images for analysis and receive predictions back. 
 ### 6.9. Risks & Uncertainties
-
-Risks are the known unknowns; uncertainties are the unknown unknows. What worries you and you would like others to review?
-
+According to research, machine learning models developed to detect Glaucoma can perform far differently in real-world applications. This mainly due to the use of differing fundus photography equipment. Improvement to the image pre-processing strategy may be necessary. 
 ## 7. Appendix
 
-### 7.1. Alternatives
-
-What alternatives did you consider and exclude? List pros and cons of each alternative and the rationale for your decision.
-
-### 7.2. Experiment Results
-
-Share any results of offline experiments that you conducted.
-
-### 7.3. Performance benchmarks
-
-Share any performance benchmarks you ran (e.g., throughput vs. latency vs. instance size/count).
-
-### 7.4. Milestones & Timeline
+### 7.1. Milestones & Timeline
 
 What are the key milestones for this system and the estimated timeline?
+July 26 – Finalize product requirements document
+July 31 – Data pre-processing complete
+Aug 2 – Model Training & Performance Evaluation Complete
+Aug 16 – Model deployed to an EC2 instance 
+Aug 23 – API released to the public
 
-### 7.5. Glossary
+### 7.2. Glossary
 
 Define and link to business or technical terms.
 
-### 7.6. References
+### 7.3. References
 (1)	https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7769798/
 (2)	https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8582616/
 (3)	https://www.nature.com/articles/eye201077
@@ -134,7 +128,8 @@ Define and link to business or technical terms.
 (5)	PAPILA: Dataset with fundus images and clinical data of both eyes of the same patient for glaucoma assessment | Scientific Data (nature.com)
 (6)	https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6425593/
 (7)	https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5223567/#:~:text=In%20eyes%20with%20IOP%20in,appearance%20resembled%20glaucomatous%20optic%20neuropathy.
-(8)	
+(8)	https://www.nature.com/articles/s41746-023-00857-0
+(9)	
 https://www.omic.com/how-to-survive-a-malpractice-suit/#:~:text=Approximately%2054%20percent%20will%20experience,at%20least%20one%20indemnity%20payment.
 https://www.aao.org/education/preferred-practice-pattern/primary-open-angle-glaucoma-ppp
 
