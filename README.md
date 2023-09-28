@@ -8,10 +8,8 @@ Glaucoma is the 2nd leading cause of blindness affecting 57.5 million people wor
 Hospitals and healthcare providers exploring the use of AI screening models have done so in isolation, developing their own in-house models. There are yet other healthcare companies who do not have the resources to develop their own models and thus seek to decrease their time to market by using off-the-shelf models. 
 The cost of allowing Glaucoma to go undiagnosed is high. Research shows that vision loss is associated with higher Medicare beneficiary costs for trauma, depression, subacute nursing facilities and nursing homes.  A person in the Medicare population with mild vision loss < 20/40 accrues an average of $5,302 in direct medical costs while a person with severe vision loss accrues an average of $9,994 in direct medical costs. Therefore, patients, government and insurers are especially interested in technology which improves the accuracy and cost-effectiveness of Glaucoma screening. 
 ## 3. Success metrics
-
 Business Metrics
 The proposed model will be sold to healthcare application developers in the field of optometry and telemedicine. Telehealth providers could prove to be optimal adopters since their business models are agile, and they are tech savvy. The success metrics below examine what it would look like to pursue US telemedicine companies as customers in Year 1.  
-
 Business Performance Year 1
 Assuming a goal of 1% market share in year 1, annual licensing fee of $10,000 and cost of development of $100,000, here are the target business performance metrics. There are 1,387 telemedicine providers in the US as of 2023. 
 ROI = (Net Income – Cost of Development)/Cost of Development
@@ -20,34 +18,37 @@ Customer Satisfaction & Product Engagement
 * Net promoter score of 80+ among physicians
 * 10% of licensed users run predictions weekly
 * 90% of users run predictions daily
-
 Agile 
-* Team members have an average velocity of 8 story points per sprint
-
+* Team members have an average velocity of 8 story points per two-week sprint
 Quality
 The service API should be available at least 99.9% of the time
 The service should receive updates at least quarterly to enhance the products performance, incorporate new data
 ## 4. Requirements & Constraints
-Functional Requirement: 
-* The model must be able to accept fundus eye images in JPG format
-* The model must be able to accept square images
-* The model must work well with small to medium sized images sized between 224 x 224 and 800 x 800 pixels
-* The model must be able to accept full color images 
-* Images and predictions must be retained for quality control and audit purposes for 10 years
-* The model can identify the following defects which are associated with Glaucoma. (4)
-Neuroretinal rim thinning
-![Area between outline of cup and optic disk]( https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.semanticscholar.org%2Fpaper%2FDetection-of-glaucoma-using-Neuroretinal-Rim-Das-Nirmala%2F73a07c0e1691665a5b376475c4a8355eba8f05f8&psig=AOvVaw0KJzMHsxvWwlflazBGgxmH&ust=1690411512607000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCJiBmeD3qoADFQAAAAAdAAAAABAEhttps://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.semanticscholar.org%2Fpaper%2FDetection-of-glaucoma-using-Neuroretinal-Rim-Das-Nirmala%2F73a07c0e1691665a5b376475c4a8355eba8f05f8&psig=AOvVaw0KJzMHsxvWwlflazBGgxmH&ust=1690411512607000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCJiBmeD3qoADFQAAAAAdAAAAABAE)
-Peripapillary Atrophy
-![Rim is pale in normal eyes, rim is darker in glaucomatous eyes]( https://www.google.com/url?sa=i&url=https%3A%2F%2Fpressbooks.pub%2Fcasebasedneuroophthalmology%2Fchapter%2Fnonglaucomatous-cupping%2F&psig=AOvVaw3BbeCVI6hh6c4DTq5zCIMB&ust=1690410878886000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCOi-_7H1qoADFQAAAAAdAAAAABAt)
-High optic cup-to-disc ratio (CDR)
-![Cup occupies a large amount of space within the optic disc]( https://glaucoma.org/wp-content/uploads/2021/11/optic-nerve-comparison-grf-1.jpg)
-Disc hemorrhage 
-![Flame or splinter shaped red area]( https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.sciencedirect.com%2Fscience%2Farticle%2Fpii%2FS0008418216311759&psig=AOvVaw0e811UK7E4_h0PCbNUKUAA&ust=1690411963172000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCMjuhbf5qoADFQAAAAAdAAAAABAs)
-Non-Functional Requirements
+### Functional Requirement: 
+| User Story | Release| Estimate|
+| ------------- | ------------- | ------------- |
+| A user would like to be able to submit their prediction request to the endpoint GET /glaucomaservice/v1/predict | V1| 2
+| The model must be able to accept fundus eye images in JPG format | V1 | 2
+| The model must be able to handle square images and no other shape  | V1 | 1 
+| The model must be able to use images with sizes between 224x224 and 800x800  | V1 | 2
+| The model must be able to differentiate between normal and glacomotous eyes with an accuracy, specificity and sensitivity of at least 90%, 88% and 92% respectively| V1.1 | 3
+| The model must be able to identify  high optic cup-to-disc ratio which is associated with Glaucoma | V1.1| 3
+| The model should only be able to use full-color images and not grayscale | V1 | 3
+| | ***Total*** | ***16***
+### Non-Functional Requirements
+The effort for these requirements is included in the estimates above. 
 * A model prediction should be generated in less than 10 seconds
 * Less than 2 bugs per 1000 lines of code is discovered upon release
 ### 4.1 Out of Scope:
-Annotations of eye anatomy and glaucomatous features would be helpful for optometrists. 
+### Explainability Enhancements
+| User Story | Release | Estimate | Image
+| ------------- | ------------- |------------- | ------------- |
+| A physician wants to be able to see an annotation of glaucomatous features| V1.1 | TBD
+| The model must be able to identify neuroretinal thinning which is associated with Glaucoma | V1.1 | TBD | <img src="https://slideplayer.com/slide/13803871/85/images/21/Temporal+thinning+of+the+Neuro-retinal+rim.jpg" width=50% height=50%>
+| The model must be able to identify peripapillary atrophy which is associated with Glaucoma | V1.1 | TBD | <img src="https://entokey.com/wp-content/uploads/2016/10/A318070_1_En_4_Fig3_HTML.jpg" width=50% height=50%>
+| The model must be able to identify disc hemorrhage which is associated with Glaucoma | V1.1 | TBD | <img src=https://webeye.ophth.uiowa.edu/dept/COMS/grading/thumbs/33-opticdischmrg-std-1.jpg width=50% height=50%>
+| The model must be able to identify high cup-to-disc ratio which is associated with Glaucoma | V1.1 | TBD | <img src="https://glaucoma.org/wp-content/uploads/2021/11/optic-nerve-comparison-grf-1.jpg" width=50% height=50%>
+
 ## 5. Methodology
 1. Architecture selection - This project will evaluate the accuracy of a VGG16 convolutional neural network in classifying eyes as “Glaucomatous” and “Non-Glaucomotous”. VGG16 architecture has been chosen for its ability to classify small images with little data loss. 
 2. Data selection – The recently published ACRIMA dataset is selected to for its consistency and quality. The images are clear, centered, and patients were screened by glaucoma experts.
@@ -74,20 +75,14 @@ What machine learning techniques will you use? How will you clean and prepare th
 This model should not be used to assess glaucoma in individuals with diseases that can mimic it including isquemic and compressive optic neuropathies. (7)
 ## 6. Implementation
 
-### 6.1. High-level design
-
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Data-flow-diagram-example.svg/1280px-Data-flow-diagram-example.svg.png)
-
-Start by providing a big-picture view. [System-context diagrams](https://en.wikipedia.org/wiki/System_context_diagram) and [data-flow diagrams](https://en.wikipedia.org/wiki/Data-flow_diagram) work well.
-
+### 6.1. High-Level Design
+<img src="https://github.com/ehaynie63/ml-design-docs/blob/main/Glaucoma_Design_DFD.jpg">
 ### 6.2. Infra
 This service will be hosted in an AWS EC2 instance and images will be stored in S3. 
 
 ### 6.3. Performance (Throughput, Latency)
 * The glaucoma screening service will scale horizontally to be able to handle a maximum of 1000 request per minute. 
 * A response for 1 prediction should be returned by the service in less than 10 seconds. 
-How will your system meet the throughput and latency requirements? Will it scale vertically or horizontally?
-
 ### 6.4. Security
 Users of the service will authenticate via OAuth 2.0. 
 ### 6.5. Data privacy
@@ -100,6 +95,23 @@ HTTP responses with 400 and 500 codes should be logged in a Splunk dashboard. Lo
 If greater than 5% of HTPP responses have a 400 or 500 code within 15 minutes an alert should be triggered. 
 If the service goes down, an alert will be triggered. 
 ### 6.7. Cost
+ML Notebook Instance – Price per hour for ml.t2.medium is $0.0464
+•	Estimated Cost for MVP: $3.71
+•	ML Storage $0.14 per GB-month
+•	Estimated cost: $0.56 per month
+•	Data Processing Cost - $0.16 per GB
+•	Est MVP Cost: $6.40
+•	Training Instance Hourly Cost (Charged for duration of training job) – 
+•	Storage - $0.14 per month per GB
+•	Hosting Real-Time Instance: Instance Cost TBD
+•	Data In/Out Cost - $0.016 per GB
+•	Image Audit Storage: TBD
+•	Endpoint Charge is hourly
+
+| No. of Units | Cost per Unit | Subtotal
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
 How much will it cost to build and operate your system? Share estimated monthly costs (e.g., EC2 instances, Lambda, etc.)
 ### 6.8. Integration points
 Users of the proposed model will query a REST API posting 1 or more fundus images for analysis and receive predictions back. 
@@ -110,11 +122,11 @@ According to research, machine learning models developed to detect Glaucoma can 
 ### 7.1. Milestones & Timeline
 
 What are the key milestones for this system and the estimated timeline?
-July 26 – Finalize product requirements document
-July 31 – Data pre-processing complete
-Aug 2 – Model Training & Performance Evaluation Complete
-Aug 16 – Model deployed to an EC2 instance 
-Aug 23 – API released to the public
+* July 26 – Finalize product requirements document
+* July 31 – Data pre-processing complete
+* Aug 2 – Model Training & Performance Evaluation Complete
+* Aug 16 – Model deployed to an EC2 instance 
+* Aug 23 – API released to the public
 
 ### 7.2. Glossary
 
