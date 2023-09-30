@@ -1,6 +1,6 @@
 # An ML Project Proposal & Design Doc for Detecting Glaucoma
+
 <img src="https://github.com/ehaynie63/ml-design-docs/blob/main/amanda-dalbjorn-UbJMy92p8wk-unsplash.jpg" object-fit="cover">
----
 
 ## Contents
 * [Overview](#1-overview)
@@ -10,6 +10,7 @@
 * [Functional Requirements](#functional-requirement)
 * [Non-Functional Requirements](#non-functional-requirements)
 * [Out of Scope](#41-out-of-scope)
+* [Explainability Enhancements for V1.1](#explainability-enhancements-for-v11)
 * [Methodology](#5-methodology)
 * [Experimentation & Validation](#54-experimentation--validation)
 * [Human in the Loop](#55-human-in-the-loop)
@@ -18,7 +19,7 @@
 * [References](#73-references)
 
 ## 1. Overview
-Glaucoma is the 2nd leading cause of blindness, affecting 57.5 million people worldwide. Routine eye examinations are an opportunity to identify Glaucoma in its early stages. However, many optometrists lack access to advanced screening technology. One study performed in the UK showed that the mean accuracy of a community optometrist viewing the fundus alone was 62%. Meanwhile, an AI screening tool had an accuracy of 93%. This project aims to provide healthcare application developers in optometry and telemedicine with access to highly accurate and cost-effective glaucoma screening technology. If successful, "Glaucoma Screening Service" will be made publicly available via paid API. (See References for supporting evidence.)
+Glaucoma is the 2nd leading cause of blindness, affecting 57.5 million people worldwide. Routine eye examinations are an opportunity to identify Glaucoma in its early stages. However, many optometrists lack access to advanced screening technology. One study performed in the UK showed that the mean accuracy of a community optometrist viewing the fundus alone was 62%. Meanwhile, an AI screening tool had an accuracy of 93%. This project aims to provide healthcare application developers in optometry and telemedicine with access to highly accurate and cost-effective glaucoma screening technology. If successful, "Glaucoma Screening Service" will be made publicly available via paid API. (See [References](#73-references) for supporting evidence.)
 ## 2. Motivation
 Hospitals and healthcare providers exploring AI screening models have done so in isolation, developing their own in-house models. Yet other healthcare companies do not have the resources to build their models and thus seek to decrease their time to market by using off-the-shelf models. 
 The cost of allowing Glaucoma to go undiagnosed is high. Research shows that vision loss is associated with higher Medicare beneficiary costs for trauma, depression, subacute nursing facilities, and nursing homes. A person in the Medicare population with mild vision loss < 20/40 accrues an average of $5,302 in direct medical costs. In contrast, a person with severe vision loss accrues an average of $9,994 in direct medical costs. Therefore, patients, the government, and insurers are especially interested in technology that improves the accuracy and cost-effectiveness of Glaucoma screening. 
@@ -26,14 +27,14 @@ The cost of allowing Glaucoma to go undiagnosed is high. Research shows that vis
 ### Business Metrics
 The proposed model will be sold to healthcare application developers in the fields of optometry and telemedicine. Telehealth providers could prove to be optimal adopters since their business models are agile and they are tech savvy. The success metrics below examine what it would look like to pursue US telemedicine companies as customers in Year 1.  
 ***Year 1 Sales Assumptions***
-*1% market share in Year 1 
+* 1% market share obtained in Year 1 
 * There are 1,387 telemedicine providers in the US as of 2023
 * Annual licensing fee of $10,000
-* Gross Income of $130,000
+* Gross Income of ~$130,000
 
 
 ***Year 1 Cost of Development & Maintenance Metrics***
-See Tables 3 and 4 for MVP and monthly maintenance cost breakdowns.
+*See [Cost of MVP](#cost-of-mvp) and [Estimated Monthly Cost](#estimated-monthly-costs) for detailed breakdowns.
 
 * MVP cost of $14,617.46 
 * Maintenance costs of $10,494 
@@ -43,7 +44,7 @@ See Tables 3 and 4 for MVP and monthly maintenance cost breakdowns.
 * ROI = (Net Income – Cost of Development)/Cost of Development
 * ROI = (130,000 –25,111)/25,111  = 435%
 
-### Customer Satisfaction & Product Engagement
+### Customer Satisfaction & Product Engagement Metrics
 * Net promoter score of 80+ among physicians
 * 10% of licensed users run predictions weekly
 * 90% of users run predictions daily
@@ -55,7 +56,7 @@ The service must receive updates at least quarterly to enhance the product perfo
 ## 4. Requirements & Constraints
 ### Functional Requirement: 
 High-level user stories and acceptance criteria. 
-A "user" in the stories below represents an external electronic health record system (EHR) that interfaces with this Rest API to generate glaucoma screening results for physicians at healthcare facilities.
+A "user" in the stories below represents an external electronic health record system (EHR) that interfaces with this Rest API to generate glaucoma screening results, which will be reviewed by physicians.
 ***Table 1***
 | # | User Story | Acceptance Criteria | Release| Estimate|
 | ------------- | ------------- | ------------- | ------------- | ------------- |
@@ -128,8 +129,8 @@ This model should not be used to assess Glaucoma in individuals with diseases th
 | SageMaker Processing ml.t3.large| 4 | Hours | $0.10 | $$0.40 
 | SageMaker Training ml.m5.large | 4 | Hours | $0.115 | $0.46
 | SageMaker Real Time Inference ml.t2.medium | 730 | Hours | $0.056 | $40.88
-| AWS Lambda  Free Tier| 300,000  GB-seconds | Up to 400K Free | $0.000
-| | | | ***Total*** | ***$954.00***|
+| AWS Lambda  Free Tier| 300,000 | GB-seconds | Up to 400K Free | $0.000
+| | | | ***Total*** | ***$954.00***
 ***Table 3***
 
 ### 6.3. Performance (Throughput, Latency)
@@ -165,17 +166,22 @@ These are the initial costs to design, train and launch a model. AWS services wi
 ***Table 4***
 
 ## 6.8. Integration points
-
-
 ### Generate Prediction Request
 
  
 `POST https://www.GlaucomaScreening.com/glaucomascreening/v1/predict`
 | Request Field | Field Type | Field Description
-| ------------- | ------------- | ------------- 
-| unique_id | String | Unique identifier of this fundus eye image from the user’s system |
+| ------------- | ------------- | ------------- |
+| unique_id | String | Unique identifier of this fundus eye image from the user’s system 
 | image | String | Base64 encoded image 
-***Table 5***
+
+***Response***
+
+| Response Field | Field Type | Field Description
+| ------------- | ------------- | ------------- |
+| unique_id | String | Unique identifier of this fundus eye image from the user’s system
+| status | String | Response status code 
+| prediction | String | The result of the prediction can be “Suspected glaucoma”, “Benign” or “Further testing required” 
 
 *Oauth2 details omitted 
 
@@ -189,10 +195,9 @@ According to research, machine learning models developed to detect Glaucoma can 
 * Table 2 – Out Scope
 * Table 3 – Estimated Monthly Costs
 * Table 4 – Cost of MVP
-* Table 5 – Generate Prediction Request API Endpoint Fields
 
 ### 7.1. Milestones & Timeline
-
+	
 * Jul 26 - Aug 2 – Data wrangling
 * Aug 3 – Aug 9 – Model training and validation
 * Aug 10 – Aug 16: REST API development 
@@ -204,7 +209,7 @@ According to research, machine learning models developed to detect Glaucoma can 
 
 Glaucoma - Glaucoma is a group of eye diseases that lead to damage of the optic nerve, which is important for transmitting visual information from the eye to the brain. This damage is often caused by increased pressure within the eye, known as intraocular pressure (IOP) and may cause vision loss if left untreated. The word glaucoma originated from the Greek word ΓλαύV̇ξ (glaukos), which means "to glow". Glaucoma has been called the "silent thief of sight" because the loss of vision usually occurs slowly over a long period of time. It is associated with old age, a family history of glaucoma, and certain medical conditions or medications.
 
-EHR - An electronic health record (EHR) is the systematized collection of patient and population electronically stored health information in a digital format. These records can be shared across different health care settings. Records are shared through network-connected, enterprise-wide information systems or other information networks and exchanges. EHRs may include a range of data, including demographics, medical history, medication and allergies, immunization status, laboratory test results, radiology images, vital signs, personal statistics like age and weight, and billing information. 
+EHR - An electronic health record (EHR) is the systematized collection of patient and population electronically-stored health information in a digital format. These records can be shared across different healthcare settings. Records are shared through network-connected, enterprise-wide information systems or other information networks and exchanges. EHRs may include a range of data, including demographics, medical history, medication and allergies, immunization status, laboratory test results, radiology images, vital signs, personal statistics like age and weight, and billing information. 
 
 ### 7.3. References
 1. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7769798/
