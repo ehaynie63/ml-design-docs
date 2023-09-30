@@ -15,7 +15,10 @@
 * [Human in the Loop](#55-human-in-the-loop)
 * [Implementation](#6-implementation)
 * [Appendix](#7-appendix)
-* [References](#73-references) 
+* [References](#73-references)
+
+
+<img src="https://github.com/ehaynie63/ml-design-docs/blob/main/amanda-dalbjorn-UbJMy92p8wk-unsplash.jpg" object-fit="cover">
 
 ## 1. Overview
 Glaucoma is the 2nd leading cause of blindness, affecting 57.5 million people worldwide. Routine eye examinations are an opportunity to identify Glaucoma in its early stages. However, many optometrists lack access to advanced screening technology. One study performed in the UK showed that the mean accuracy of a community optometrist viewing the fundus alone was 62%. Meanwhile, an AI screening tool had an accuracy of 93%. This project aims to provide healthcare application developers in optometry and telemedicine with access to highly accurate and cost-effective glaucoma screening technology. If successful, "Glaucoma Screening Service" will be made publicly available via paid API. (See References for supporting evidence.)
@@ -33,7 +36,7 @@ The proposed model will be sold to healthcare application developers in the fiel
 
 
 ***Year 1 Cost of Development & Maintenance Metrics***
-See tables 3 and 4 for MVP and monthly maintenance cost breakdowns.
+See Tables 3 and 4 for MVP and monthly maintenance cost breakdowns.
 
 * MVP cost of $14,617.46 
 * Maintenance costs of $10,494 
