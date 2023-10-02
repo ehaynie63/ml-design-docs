@@ -107,7 +107,7 @@ Data Preprocessing
 ### 5.4. Experimentation & Validation
 * Data will be split into training and validation sets using a split ratio of 4:1. 
 * The accuracy, specificity, and sensitivity of the model will be measured and compared to similar models which had an accuracy, specificity, and sensitivity of 90%, 88%, and 92%.(6) 
-* Two optimizers will be compared, Adam and SGD, and the one that performs best on average over 20 tests will be used.
+* Two optimizers will be compared, Adam and SGD.
 * Categorical cross-entropy will be used as the cost function since it can accept the output of the final SoftMax layer.
 ### 5.5. Human-in-the-loop
 Predictions with a confidence level below 75% will contain a message that indicates the user should undergo additional screening. 
