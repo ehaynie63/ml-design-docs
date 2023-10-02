@@ -27,17 +27,17 @@ The cost of allowing Glaucoma to go undiagnosed is high. Research shows that vis
 ### Business Metrics
 The proposed model will be sold to healthcare application developers in the fields of optometry and telemedicine. Telehealth providers could prove to be optimal adopters since their business models are agile and they are tech savvy. The success metrics below examine what it would look like to pursue US telemedicine companies as customers in Year 1.  
 ***Year 1 Sales Assumptions***
-* 1% market share obtained in Year 1 
 * There are 1,387 telemedicine providers in the US as of 2023
+* 1% market share obtained in Year 1 = 13 customers
 * Annual licensing fee of $10,000
-* Gross Income of ~$130,000
+* Gross Income = 13 * $10,000 = $130,000
 
 
 ***Year 1 Cost of Development & Maintenance Metrics***
 *See [Cost of MVP](#cost-of-mvp) and [Estimated Monthly Cost](#estimated-monthly-costs) for detailed breakdowns.
 
 * MVP cost of $14,617.46 
-* Maintenance costs of $10,494 
+* Maintenance cost of $10,494 
 * Total Year 1 Costs =  $14,617.46 + $10,494 = ~$25,111 
 
 ***Year 1 Project ROI***
@@ -45,8 +45,7 @@ The proposed model will be sold to healthcare application developers in the fiel
 * ROI = (130,000 –25,111)/25,111  = 435%
 
 ### Customer Satisfaction & Product Engagement Metrics
-* Net promoter score of 80+ among physicians
-* 10% of licensed users run predictions weekly
+* Net promoter score of 85+ among physicians
 * 90% of users run predictions daily
 Agile 
 * Team members have an average velocity of 8 story points per two-week sprint
